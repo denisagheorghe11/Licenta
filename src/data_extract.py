@@ -3,7 +3,7 @@ from mysql.connector import Error
 try:
    mySQLconnection = mysql.connector.connect(host='localhost',
                              database='stats_db',
-                             user='username',                   #replace by yourself
+                             user='midu',                   #replace by yourself
                              password='password')               #replace by yourself
 
    sql_select_Query = "select * from stats_db"
@@ -12,12 +12,12 @@ try:
    records = cursor.fetchall()
 
    print("Total number of rows in stats_db is - ", cursor.rowcount)
-   print ("Printing each row's column values i.e.  developer record")
+   print ("Printing each row's column values i.e.  developer record!This is just for testing")
    for row in records:
-       print("eNodeB = ", row[0], )
-       print("Name = ", row[1])
-       print("JoiningDate  = ", row[2])
-       print("Salary  = ", row[3], "\n")
+       print("bs_id = ", row[0], )
+       print("agent_info0agent_id = ", row[1])
+       print("agent_info0bs_id  = ", row[2])
+       print("agent_info0capabilities0  = ", row[3], "\n")
    cursor.close()
 
 except Error as e :
