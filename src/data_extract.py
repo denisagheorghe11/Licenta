@@ -3,16 +3,16 @@ from mysql.connector import Error
 try:
    mySQLconnection = mysql.connector.connect(host='localhost',
                              database='stats_db',
-                             user='midu',                   #replace by yourself
-                             password='password')               #replace by yourself
+                             user='root',                   #replace by yourself
+                             password='root')               #replace by yourself
 
-   sql_select_Query = "select * from stats_db"
+   sql_select_Query = "select * from mytable"
    cursor = mySQLconnection .cursor()
    cursor.execute(sql_select_Query)
    records = cursor.fetchall()
 
-   print("Total number of rows in stats_db is - ", cursor.rowcount)
-   print ("Printing each row's column values i.e.  developer record!This is just for testing")
+   print("Total number of rows in stats_db is: ", cursor.rowcount)
+   print ("Printing each row's column values i.e.  developer record! This is just for testing")
    for row in records:
        print("bs_id = ", row[0], )
        print("agent_info0agent_id = ", row[1])
@@ -25,5 +25,5 @@ except Error as e :
 finally:
     #closing database connection.
     if(mySQLconnection .is_connected()):
-        connection.close()
+        mySQLconnection.close()
         print("MySQL connection is closed")
