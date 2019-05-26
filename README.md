@@ -7,7 +7,9 @@ B.S.c Gheorghe Denisa
 ├── Databases
 │   ├── database
 ├── src
-└── data_extract.py
+	├── data_extract.py
+	├──data_prediction.py
+
 ```
 
 ## Description of the src/data_extract.py
