@@ -1,29 +1,43 @@
-import mysql.connector
-from mysql.connector import Error
-try:
-   mySQLconnection = mysql.connector.connect(host='localhost',
-                             database='stats_db',
-                             user='midu',                   #replace by yourself
-                             password='password')               #replace by yourself
+#!/usr/bin/python
+###############################################
+#
+#
+# Description: Python3.7 Script to access and
+#retrieve mysqlDB parameters in LTEAnalytics.
+#
+# Mihai I
+###############################################
+import MySQLdb
 
-   sql_select_Query = "select * from stats_db"
-   cursor = mySQLconnection .cursor()
-   cursor.execute(sql_select_Query)
-   records = cursor.fetchall()
+# Open database connection
+db = MySQLdb.connect("localhost","midu","password","mytable" )
 
-   print("Total number of rows in stats_db is - ", cursor.rowcount)
-   print ("Printing each row's column values i.e.  developer record!This is just for testing")
-   for row in records:
+sql_select_Query = "select * from mytable"
+
+# prepare a cursor object using cursor() method
+cursor = db.cursor()
+
+# execute SQL query using execute() method.
+cursor.execute("SELECT VERSION()")
+
+# execute another SQL query
+cursor.execute(sql_select_Query)
+
+# Fetch a single row using fetchone() method.
+data = cursor.fetchone()
+print( "Database version : %s ",data)
+
+records = cursor.fetchall()
+print("Total number of rows in mytable is - ", cursor.rowcount)
+
+# for testing
+print ("Print each row's column value!")
+for row in records:
        print("bs_id = ", row[0], )
        print("agent_info0agent_id = ", row[1])
        print("agent_info0bs_id  = ", row[2])
        print("agent_info0capabilities0  = ", row[3], "\n")
-   cursor.close()
+cursor.close()
 
-except Error as e :
-    print ("Error while connecting to MySQL", e)
-finally:
-    #closing database connection.
-    if(mySQLconnection .is_connected()):
-        connection.close()
-        print("MySQL connection is closed")
+# disconnect from server
+db.close()
