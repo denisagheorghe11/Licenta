@@ -9,7 +9,7 @@ df = pd.read_sql_table()
 
 ######################################################################
 # data transformation
-#Now that the dataset is already in a pands dataframe, next we have to 
+#Now that the dataset is already in a pands dataframe, next we have to
 df['target'] = dr['y'].apply(lambda x: 1 if x == 'yes' else 0)
 
 ######################################################################
@@ -40,7 +40,7 @@ for key, group in grouped:
     rects = ax.patches
     for rect in rects:
         height = rect.get_height()
-        ax.text(rect.get_x()+rect.get_width()/2., 1.01*height, str(round(height*100,1)) + '%', 
+        ax.text(rect.get_x()+rect.get_width()/2., 1.01*height, str(round(height*100,1)) + '%',
                 ha='center', va='bottom', color=num_color, fontweight='bold')
 
 # Prediction Model
@@ -79,5 +79,46 @@ auc_train = metrics.auc(fpr,tpr)
 fpr, tpr, _ = metrics.roc_curve(np.array(label_test), clf.predict_proba(features_test)[:,1])
 auc_test = metrics.auc(fpr,tpr)
 
-        
+# Hyper parameter Tunning
+from sklearn.model_selection import RandomizedSearchCV
+from sklearn.ensemble import RandomForestClassifier
 
+n_estimators = [int(x) for x in np.linspace(start = 10, stop = 500, num = 10)]
+max_features = ['auto', 'sqrt']
+max_depth = [int(x) for x in np.linspace(3, 10, num = 1)]
+max_depth.append(None)
+min_samples_split = [2, 5, 10]
+min_samples_leaf = [1, 2, 4]
+bootstrap = [True, False]
+
+random_grid = {'n_estimators': n_estimators,
+               'max_features': max_features,
+               'max_depth': max_depth,
+               'min_samples_split': min_samples_split,
+               'min_samples_leaf': min_samples_leaf,
+               'bootstrap': bootstrap}
+
+rf = RandomForestClassifier()
+
+rf_random = RandomizedSearchCV(estimator = rf, param_distributions = random_grid, n_iter = 10, cv = 2, verbose=2, random_state=42, n_jobs = -1)
+rf_random.fit(features_train, label_train)
+
+# Final Model and Model performance
+# The final model that gives us the better accuracy values is picked for now
+pd.crosstab(label_train,pd.Series(pred_train),rownames=['ACTUAL'],colnames=['PRED'])
+
+#ROC or AUC curve or c-statistics
+from bokeh.charts import Histogram
+from ipywidgets import interact
+from bokeh.plotting import figure
+from bokeh.io import push_notebook, show, output_notebook
+output_notebook()
+from sklearn import metrics
+preds = clf.predict_proba(features_train)[:,1]
+fpr, tpr, _ = metrics.roc_curve(np.array(label_train), preds)
+auc = metrics.auc(fpr,tpr)
+p = figure(title="ROC Curve - Train data")
+r = p.line(fpr,tpr,color='#0077bc',legend = 'AUC = '+ str(round(auc,3)), line_width=2)
+s = p.line([0,1],[0,1], color= '#d15555',line_dash='dotdash',line_width=2)
+show(p)
+        
