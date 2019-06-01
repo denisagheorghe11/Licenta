@@ -121,4 +121,18 @@ p = figure(title="ROC Curve - Train data")
 r = p.line(fpr,tpr,color='#0077bc',legend = 'AUC = '+ str(round(auc,3)), line_width=2)
 s = p.line([0,1],[0,1], color= '#d15555',line_dash='dotdash',line_width=2)
 show(p)
-        
+
+#Decide Plots and Kolmogorov Smirnov (KS) statistics
+deciling(scores_train,['DECILE'],'TARGET','NONTARGET')
+#lift charts, actual vs prediction chart and gains chart
+gains(lift_train,['DECILE'],'TARGET','SCORE')
+
+#Save the model for future development of the code
+import pandas
+from sklearn.externals import joblib
+
+filename = 'final_model.model'
+i = [d,clf]
+joblib.dump(i,filename)
+#clf - is the model classifier object
+#d   - is the label encoder object used to transform character to numeric values
