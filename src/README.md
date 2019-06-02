@@ -11,6 +11,7 @@ There are two testing scenario's.
 
 ## First Scenario
 
+TBD
 
 ## Second Scenario
 
@@ -18,3 +19,5 @@ This scenario collects the data from two phones into a MySQLdb of commmon radio 
 
 
 ## Conclusion
+
+TBD
