@@ -1,35 +1,29 @@
 #######################################################################
 # Mihai I 2019
 #
-# Description: converting the sql export into .xlsx file for further
-#development processing.
-#
-#######################################################################
-import MySQLdb
-import pandas as pd
+################################################################################
 import os
-#######################################################################
-#
-# It needs to install the pyodbc, pands and openpyxl library
-#
-#######################################################################
-# Open database connection
-db = MySQLdb.connect("localhost","midu","password","mytable" )
+import MySQLdb as dbapi                   # pip install mysqldb
+import pandas as pd                       # pip install pandas
 
-sql_select_Query = "select * from mytable"
+cd = os.path.dirname(os.path.abspath(__file__))
 
-# prepare a cursor object using cursor() method
-cursor = db.cursor()
-script = """
-SELECT * FROM mytable
-"""
-#Executing the script commands
-cursor.execute(script)
+# OPEN DATABASE CONNECTION
+db = dbapi.connect(host='localhost',user='username',passwd='password', db='mytable')
+cur = db.cursor()
 
-columns = [desc[0] for desc in cursor.description]
-data = cursor.fetchall()
-df = pd.DataFrame(list(data), columns=columns)
+# OBTAIN ALL TABLES
+cur.execute("SHOW TABLES;")
+tables = cur.fetchall()
 
-writer = pd.ExcelWriter('C:/Users/Mihai/Documents/GitHub/LTE-Analytics/src/foo.xlsx',options={'encoding':'utf-8'})
-df.to_excel(writer,engine='xlsxwriter')
-writer.save()
+for t in tables:
+    columns = []
+    # IMPORT DATA TO DATA FRAME
+    df = pd.read_sql("SELECT * FROM {0};".format(t[0]), db)
+    # EXPORT DATA FRAME TO CSV
+    df.to_csv(os.path.join(cd, '{0}.csv'.format(t[0])), index=False)
+# CLOSE CURSOR AND DATABASE CONNECTION
+cur.close()
+db.close()
+################################################################################
+###################################EOF##########################################
