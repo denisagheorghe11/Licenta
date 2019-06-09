@@ -1,43 +1,33 @@
-#!/usr/bin/python
-###############################################
+################################################################################
+# Mihai IDU - 2019
 #
+# Descriptopn: In order to feed the data to the Analytic algotirthm it needs a
+#csv export of the MySQLdb table.
+#This code handles the export.
 #
-# Description: Python3.7 Script to access and
-#retrieve mysqlDB parameters in LTEAnalytics.
-#
-# Mihai I
-###############################################
-import MySQLdb
+################################################################################
+import os
+import MySQLdb as dbapi
+import pandas as pd
 
-# Open database connection
-db = MySQLdb.connect("localhost","midu","password","mytable" )
+cd = os.path.dirname(os.path.abspath(__file__))
 
-sql_select_Query = "select * from mytable"
+# OPEN DATABASE CONNECTION
+db = dbapi.connect(host='localhost',user='midu',passwd='passwd', db='mytable')
+cur = db.cursor()
 
-# prepare a cursor object using cursor() method
-cursor = db.cursor()
+# OBTAIN ALL TABLES
+cur.execute("SHOW TABLES;")
+tables = cur.fetchall()
 
-# execute SQL query using execute() method.
-cursor.execute("SELECT VERSION()")
-
-# execute another SQL query
-cursor.execute(sql_select_Query)
-
-# Fetch a single row using fetchone() method.
-data = cursor.fetchone()
-print( "Database version : %s ",data)
-
-records = cursor.fetchall()
-print("Total number of rows in mytable is - ", cursor.rowcount)
-
-# for testing
-print ("Print each row's column value!")
-for row in records:
-       print("bs_id = ", row[0], )
-       print("agent_info0agent_id = ", row[1])
-       print("agent_info0bs_id  = ", row[2])
-       print("agent_info0capabilities0  = ", row[3], "\n")
-cursor.close()
-
-# disconnect from server
+for t in tables:
+    columns = []
+    # IMPORT DATA TO DATA FRAME
+    df = pd.read_sql("SELECT * FROM {0};".format(t[0]), db)
+    # EXPORT DATA FRAME TO CSV
+    df.to_csv(os.path.join(cd, '{0}.csv'.format(t[0])), index=False)
+# CLOSE CURSOR AND DATABASE CONNECTION
+cur.close()
 db.close()
+################################################################################
+###################################EOF##########################################
