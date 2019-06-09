@@ -33,9 +33,9 @@ CREATE TABLE mytable(
   ,eNBcellConfig0siConfigsiWindowLength               BIGINT   
   ,eNBcellConfig0dlBandwidth                          BIGINT   
   ,eNBcellConfig0ulBandwidth                          BIGINT   
-  ,eNBcellConfig0ulCyclicPrefixLength                 BIT   
-  ,eNBcellConfig0dlCyclicPrefixLength                 BIT   
-  ,eNBcellConfig0antennaPortsCount                    BIT   
+  ,eNBcellConfig0ulCyclicPrefixLength                 BIGINT   
+  ,eNBcellConfig0dlCyclicPrefixLength                 BIGINT   
+  ,eNBcellConfig0antennaPortsCount                    BIGINT   
   ,eNBcellConfig0duplexMode                           BIT   
   ,eNBcellConfig0subframeAssignment                   BIT   
   ,eNBcellConfig0specialSubframePatterns              BIT   
@@ -50,14 +50,14 @@ CREATE TABLE mytable(
   ,eNBcellConfig0srsSubframeConfig                    BIT   
   ,eNBcellConfig0srsBwConfig                          BIT   
   ,eNBcellConfig0srsMacUpPts                          BIT   
-  ,eNBcellConfig0enable64QAM                          BIT   
+  ,eNBcellConfig0enable64QAM                          BIGINT   
   ,eNBcellConfig0carrierIndex                         BIT   
   ,eNBcellConfig0dlFreq                               BIGINT   
   ,eNBcellConfig0ulFreq                               BIGINT   
   ,eNBcellConfig0eutraBand                            BIGINT   
   ,eNBcellConfig0dlPdschPower                         BIGINT   
   ,eNBcellConfig0ulPuschPower                         BIGINT   
-  ,eNBcellConfig0sliceConfigdl0id                     BIT   
+  ,eNBcellConfig0sliceConfigdl0id                     BIGINT   
   ,eNBcellConfig0sliceConfigdl0label                  VARCHAR(4)  
   ,eNBcellConfig0sliceConfigdl0percentage             BIGINT   
   ,eNBcellConfig0sliceConfigdl0isolation              VARCHAR(5)  
