@@ -37,10 +37,15 @@ For further development, please keep the directory structure!
 On the Databases directory are uploaded just the MySQLDB and the microsoft csv export of itself
 
 In the src/ can be found the python code, with the following attributes:
+
 	- data_extract.py 	it extracts the DB into a csv file
+	
 	- data_prediction.py 	it computes the prediction for the LTE parameters
+	
 	- db_export.csv 	its the MYSQLDB extraction in csv format
+	
 	- db_export.xlsx	its the MYSQLDB extraction in xlsx format this will be used for further development of the code
+	
 	- final_model.model	its the development export of the prediction
 
 ## Description of the src/data_extract.py
