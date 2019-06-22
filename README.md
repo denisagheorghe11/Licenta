@@ -5,12 +5,48 @@ B.S.c Gheorghe Denisa
 ```
 .
 ├── Databases
-│   ├── database
-├── src
-	├── data_extract.py
-	├──data_prediction.py
+│   ├── db_export.csv
+│   └── stats_db.sql
+├── Documentation
+│   ├── 1.ijaerv10n87spl_89-DEC2015.pdf
+│   └── mnm2017_paper6.pdf
+├── README.md
+└── src
+    ├── data_extract.py
+    ├── data_prediction.py
+    ├── db_export.csv
+    ├── db_export.xlsx
+    ├── final_model.model
+    ├── README.md
+    └── results
+        ├── Figure_1.png
+        ├── Figure_2.png
+        ├── Figure_3.png
+        ├── Figure_4.png
+        ├── Figure_5.png
+        ├── Figure_6.png
+        ├── Figure_7.png
+        ├── Figure_8.png
+        ├── Figure_9.png
+        └── param_class_value.txt
+
+4 directories, 21 files
 
 ```
+For further development, please keep the directory structure!
+On the Databases directory are uploaded just the MySQLDB and the microsoft csv export of itself
+
+In the src/ can be found the python code, with the following attributes:
+
+	- data_extract.py 	it extracts the DB into a csv file
+	
+	- data_prediction.py 	it computes the prediction for the LTE parameters
+	
+	- db_export.csv 	its the MYSQLDB extraction in csv format
+	
+	- db_export.xlsx	its the MYSQLDB extraction in xlsx format this will be used for further development of the code
+	
+	- final_model.model	its the development export of the prediction
 
 ## Description of the src/data_extract.py
 
