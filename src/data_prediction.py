@@ -1,5 +1,22 @@
-import pandas as pd                 #pip install pands
-import numpy as np                  #pip install numpy
+######################################################################
+# Importing all the python-pip external libraries
+######################################################################
+import pandas as pd                     #pip install pands
+import numpy as np                      #pip install numpy
+import seaborn as sns                   #pip install seaborn
+import matplotlib.pyplot as plt         #pip install matplotlib
+from sklearn import preprocessing       #pip install sklearn
+from collections import defaultdict     #pip install collections
+import pandas.core.algorithms as algos
+from pandas import Series
+import scipy.stats.stats as stats
+import re                               #
+import traceback                        #pip install traceback
+import string                           #pip install string
+from collections import OrderedDict
+import matplotlib.pyplot as plt         #pip install matplotlib
+import pandas
+from sklearn.externals import joblib
 ######################################################################
 #
 #
@@ -10,7 +27,6 @@ df = pd.read_excel("db_export.xlsx")
 
 df.head()
 df.info()
-
 ######################################################################
 # data transformation
 #Now that the dataset is already in a pands dataframe, next we have to
@@ -30,8 +46,6 @@ df.target.value_counts()/len(df)
 df.describe()
 df.dtypes
 
-import seaborn as sns                   #pip install seaborn
-import matplotlib.pyplot as plt         #pip install matplotlib
 corr = df.corr()
 sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns)
 plt.show() # its display the heatmap
@@ -39,8 +53,7 @@ plt.show() # its display the heatmap
 #Variable Selection
 # Data transformation
 # Convert categorical values to numeric using label encoder
-from sklearn import preprocessing
-from collections import defaultdict
+
 d = defaultdict(preprocessing.LabelEncoder)
 
 # Encoding the categorical variable
@@ -55,15 +68,6 @@ features = df[df.columns.difference(['target'])]
 labels = df['target']
 
 # import packages
-import pandas as pd
-import numpy as np
-import pandas.core.algorithms as algos
-from pandas import Series
-import scipy.stats.stats as stats
-import re
-import traceback
-import string
-
 max_bin = 20
 force_bin = 3
 
@@ -246,7 +250,6 @@ Selected[Selected['RFE'] == True]
 
 
 from sklearn.ensemble import ExtraTreesClassifier
-
 model = ExtraTreesClassifier()
 model.fit(features, labels)
 
@@ -435,9 +438,6 @@ auc_test = metrics.auc(fpr,tpr)
 print(accuracy_train,accuracy_test,auc_train,auc_test)
 
 
-from collections import OrderedDict
-import pandas as pd
-import sys
 
 
 def plot_pandas_style(styler):
@@ -489,13 +489,14 @@ def scoring(features,clf,target):
     return(score)
 
 scores_train = scoring(features_train,clf,label_train)
-scores_test = scoring(features_test,clf,label_test)
-
+#scores_test = scoring(features_test,clf,label_test)
+#includes the train scores otain
 deciling(scores_train,['DECILE'],'TARGET','NONTARGET')
+#includes the test scoring obtain
+scores_test = scoring(features_test,clf,label_test)
+deciling(score_test,['DECILE'],'TARGET','NONTARGET')
 
-from collections import OrderedDict
-import pandas as pd
-import matplotlib.pyplot as plt
+
 
 def plots(agg1,target,type):
 
@@ -560,9 +561,6 @@ plt.show() # its display the heatmap
 # some of the actual results have a different distribution then the predicted one
 #due to the fact that we are included some of the values in the algorithms that
 #are always 100% or not have huge impact.
-
-import pandas
-from sklearn.externals import joblib
 
 filename = 'final_model.model'
 i = [d,clf]
