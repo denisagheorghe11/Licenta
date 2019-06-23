@@ -19,7 +19,9 @@ B.S.c Gheorghe Denisa
     ├── final_model.model
     ├── README.md
     └── results
+        ├── Figure_1_eNB.png
         ├── Figure_1.png
+        ├── Figure_1_UE.png
         ├── Figure_2.png
         ├── Figure_3.png
         ├── Figure_4.png
@@ -30,7 +32,7 @@ B.S.c Gheorghe Denisa
         ├── Figure_9.png
         └── param_class_value.txt
 
-4 directories, 21 files
+4 directories, 23 files
 
 ```
 For further development, please keep the directory structure!
