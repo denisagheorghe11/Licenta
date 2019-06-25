@@ -1,7 +1,7 @@
 ######################################################################
 # Importing all the python-pip external libraries
 ######################################################################
-import pandas as pd                     #pip install pands
+import pandas as pd                     #pip install pandas
 import numpy as np                      #pip install numpy
 import seaborn as sns                   #pip install seaborn
 import matplotlib.pyplot as plt         #pip install matplotlib
@@ -15,12 +15,16 @@ import traceback                        #pip install traceback
 import string                           #pip install string
 from collections import OrderedDict
 import matplotlib.pyplot as plt         #pip install matplotlib
-import pandas
+import pandas                           #pip install pandas
 from sklearn.externals import joblib
 ######################################################################
 #
 #
 # Mihai - 2019
+# contact e-mail: idumihai16@gmail.com
+#
+# For any bug report or issue, please file a issue ticket on the github project
+#https://github.com/midu16/LTE-Analytics
 ######################################################################
 # load datasets
 df = pd.read_excel("db_export.xlsx")
@@ -396,9 +400,7 @@ print(gf_tune.best_params_)
 
 from sklearn.ensemble import GradientBoostingClassifier
 clf = GradientBoostingClassifier(**gf_tune.best_params_)
-
 clf.fit(features_train,label_train)
-
 pred_train = clf.predict(features_train)
 pred_test = clf.predict(features_test)
 
@@ -409,7 +411,6 @@ accuracy_test = accuracy_score(pred_test,label_test)
 from sklearn import metrics
 fpr, tpr, _ = metrics.roc_curve(np.array(label_train), clf.predict_proba(features_train)[:,1])
 auc_train = metrics.auc(fpr,tpr)
-
 fpr, tpr, _ = metrics.roc_curve(np.array(label_test), clf.predict_proba(features_test)[:,1])
 auc_test = metrics.auc(fpr,tpr)
 
@@ -436,9 +437,6 @@ fpr, tpr, _ = metrics.roc_curve(np.array(label_test), clf.predict_proba(features
 auc_test = metrics.auc(fpr,tpr)
 
 print(accuracy_train,accuracy_test,auc_train,auc_test)
-
-
-
 
 def plot_pandas_style(styler):
     from IPython.core.display import HTML
@@ -557,6 +555,20 @@ def gains(data,decile_by,target,score):
 lift_train = pd.concat([features_train,scores_train],axis=1)
 lift_test = pd.concat([features_test,scores_test],axis=1)
 gains(lift_train,['DECILE'],'TARGET','SCORE')
+################################################################################
+# Export of data according to the G. Denisa request on trello
+#
+# This will export to a "output.csv" file all the values from the lift_train not
+#lift_test.
+#
+################################################################################
+import csv
+resultFyle = open("output.csv",'wb')
+# Create Writer Object
+wr = csv.writer(resultFyle, dialect='excel')
+# Write Data to File
+for item in lift_train:
+    wr.writerow(item)
 plt.show() # its display the heatmap
 # some of the actual results have a different distribution then the predicted one
 #due to the fact that we are included some of the values in the algorithms that
