@@ -10,24 +10,16 @@ B.S.c Gheorghe Denisa
 ├── Documentation
 │   ├── 1.ijaerv10n87spl_89-DEC2015.pdf
 │   └── mnm2017_paper6.pdf
-├── Paper
-│   ├── CSCN
-│   │   └── Conference-template-A4.doc
-│   └── JunePaper
-│       ├── Denisa
-│       └── _GHEORGHE_Gh_Denisa.pdf
 ├── README.md
 └── src
-    ├── README.md
     ├── data_extract.py
     ├── data_prediction.py
     ├── db_export.csv
     ├── db_export.xlsx
     ├── final_model.model
+    ├── README.md
     └── results
         ├── Figure_1.png
-        ├── Figure_1_UE.png
-        ├── Figure_1_eNB.png
         ├── Figure_2.png
         ├── Figure_3.png
         ├── Figure_4.png
@@ -38,7 +30,7 @@ B.S.c Gheorghe Denisa
         ├── Figure_9.png
         └── param_class_value.txt
 
-7 directories, 25 files
+4 directories, 21 files
 
 ```
 For further development, please keep the directory structure!

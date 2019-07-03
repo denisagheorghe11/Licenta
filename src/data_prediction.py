@@ -1,36 +1,16 @@
-######################################################################
-# Importing all the python-pip external libraries
-######################################################################
-import pandas as pd                     #pip install pandas
-import numpy as np                      #pip install numpy
-import seaborn as sns                   #pip install seaborn
-import matplotlib.pyplot as plt         #pip install matplotlib
-from sklearn import preprocessing       #pip install sklearn
-from collections import defaultdict     #pip install collections
-import pandas.core.algorithms as algos
-from pandas import Series
-import scipy.stats.stats as stats
-import re                               #
-import traceback                        #pip install traceback
-import string                           #pip install string
-from collections import OrderedDict
-import matplotlib.pyplot as plt         #pip install matplotlib
-import pandas                           #pip install pandas
-from sklearn.externals import joblib
+import pandas as pd                 #pip install pands
+import numpy as np                  #pip install numpy
 ######################################################################
 #
 #
 # Mihai - 2019
-# contact e-mail: idumihai16@gmail.com
-#
-# For any bug report or issue, please file a issue ticket on the github project
-#https://github.com/midu16/LTE-Analytics
 ######################################################################
 # load datasets
 df = pd.read_excel("db_export.xlsx")
 
 df.head()
 df.info()
+
 ######################################################################
 # data transformation
 #Now that the dataset is already in a pands dataframe, next we have to
@@ -50,6 +30,8 @@ df.target.value_counts()/len(df)
 df.describe()
 df.dtypes
 
+import seaborn as sns                   #pip install seaborn
+import matplotlib.pyplot as plt         #pip install matplotlib
 corr = df.corr()
 sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns)
 plt.show() # its display the heatmap
@@ -57,7 +39,8 @@ plt.show() # its display the heatmap
 #Variable Selection
 # Data transformation
 # Convert categorical values to numeric using label encoder
-
+from sklearn import preprocessing
+from collections import defaultdict
 d = defaultdict(preprocessing.LabelEncoder)
 
 # Encoding the categorical variable
@@ -72,6 +55,15 @@ features = df[df.columns.difference(['target'])]
 labels = df['target']
 
 # import packages
+import pandas as pd
+import numpy as np
+import pandas.core.algorithms as algos
+from pandas import Series
+import scipy.stats.stats as stats
+import re
+import traceback
+import string
+
 max_bin = 20
 force_bin = 3
 
@@ -254,6 +246,7 @@ Selected[Selected['RFE'] == True]
 
 
 from sklearn.ensemble import ExtraTreesClassifier
+
 model = ExtraTreesClassifier()
 model.fit(features, labels)
 
@@ -400,7 +393,9 @@ print(gf_tune.best_params_)
 
 from sklearn.ensemble import GradientBoostingClassifier
 clf = GradientBoostingClassifier(**gf_tune.best_params_)
+
 clf.fit(features_train,label_train)
+
 pred_train = clf.predict(features_train)
 pred_test = clf.predict(features_test)
 
@@ -411,6 +406,7 @@ accuracy_test = accuracy_score(pred_test,label_test)
 from sklearn import metrics
 fpr, tpr, _ = metrics.roc_curve(np.array(label_train), clf.predict_proba(features_train)[:,1])
 auc_train = metrics.auc(fpr,tpr)
+
 fpr, tpr, _ = metrics.roc_curve(np.array(label_test), clf.predict_proba(features_test)[:,1])
 auc_test = metrics.auc(fpr,tpr)
 
@@ -437,6 +433,12 @@ fpr, tpr, _ = metrics.roc_curve(np.array(label_test), clf.predict_proba(features
 auc_test = metrics.auc(fpr,tpr)
 
 print(accuracy_train,accuracy_test,auc_train,auc_test)
+
+
+from collections import OrderedDict
+import pandas as pd
+import sys
+
 
 def plot_pandas_style(styler):
     from IPython.core.display import HTML
@@ -487,14 +489,13 @@ def scoring(features,clf,target):
     return(score)
 
 scores_train = scoring(features_train,clf,label_train)
-#scores_test = scoring(features_test,clf,label_test)
-#includes the train scores otain
-deciling(scores_train,['DECILE'],'TARGET','NONTARGET')
-#includes the test scoring obtain
 scores_test = scoring(features_test,clf,label_test)
-deciling(score_test,['DECILE'],'TARGET','NONTARGET')
 
+deciling(scores_train,['DECILE'],'TARGET','NONTARGET')
 
+from collections import OrderedDict
+import pandas as pd
+import matplotlib.pyplot as plt
 
 def plots(agg1,target,type):
 
@@ -555,24 +556,13 @@ def gains(data,decile_by,target,score):
 lift_train = pd.concat([features_train,scores_train],axis=1)
 lift_test = pd.concat([features_test,scores_test],axis=1)
 gains(lift_train,['DECILE'],'TARGET','SCORE')
-################################################################################
-# Export of data according to the G. Denisa request on trello
-#
-# This will export to a "output.csv" file all the values from the lift_train not
-#lift_test.
-#
-################################################################################
-import csv
-resultFyle = open("output.csv",'wb')
-# Create Writer Object
-wr = csv.writer(resultFyle, dialect='excel')
-# Write Data to File
-for item in lift_train:
-    wr.writerow(item)
 plt.show() # its display the heatmap
 # some of the actual results have a different distribution then the predicted one
 #due to the fact that we are included some of the values in the algorithms that
 #are always 100% or not have huge impact.
+
+import pandas
+from sklearn.externals import joblib
 
 filename = 'final_model.model'
 i = [d,clf]
