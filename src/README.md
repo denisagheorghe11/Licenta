@@ -22,3 +22,30 @@ TBD
 
 ## Sets of results:
  A set of results can be found on the src/results.
+
+ The src/ directory strcuture is presented below:
+```
+.
+├── data_extract.py
+├── data_prediction.py
+├── db_export.csv
+├── db_export.xlsx
+├── final_model.model
+├── README.md
+└── results
+    ├── Figure_1_eNB.png
+    ├── Figure_1.png
+    ├── Figure_1_UE.png
+    ├── Figure_2.png
+    ├── Figure_3.png
+    ├── Figure_4.png
+    ├── Figure_5.png
+    ├── Figure_6.png
+    ├── Figure_7.png
+    ├── Figure_8.png
+    ├── Figure_9.png
+    └── param_class_value.txt
+
+1 directory, 18 files
+```
+ Note that the Figure_1_eNB.png, Figure_1.png and Figure_1_UE.png are representing the results of the corelation matrix. 
