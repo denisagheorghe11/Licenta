@@ -14,7 +14,8 @@ B.S.c Gheorghe Denisa
 │   ├── CSCN
 │   │   └── Conference-template-A4.doc
 │   └── JunePaper
-│       └── Denisa
+│       ├── Denisa
+│       └── _GHEORGHE_Gh_Denisa.pdf
 ├── README.md
 └── src
     ├── README.md
